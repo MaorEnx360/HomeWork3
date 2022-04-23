@@ -18,7 +18,7 @@ void initQueue(Queue* q)
 void destroyQueue(Queue* q)
 {
 	list_delete(q->head);
-
+	//hi
 	// add your code here
 }
 
