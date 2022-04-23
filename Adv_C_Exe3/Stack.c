@@ -1,7 +1,7 @@
 #include "Stack.h"
 #include <stdio.h>
 
-void list_delete2(charNode * head);
+void list_delete(charNode * head);
 charNode *addToHead(charNode *head, charNode *toAdd);
 void removeItem(charNode **head);
 
