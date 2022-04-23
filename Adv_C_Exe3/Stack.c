@@ -1,4 +1,5 @@
 #include "Stack.h"
+#include <stdio.h>
 
 /***************** Stack ADT Implementation *****************/
 
