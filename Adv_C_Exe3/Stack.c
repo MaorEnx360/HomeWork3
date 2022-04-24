@@ -1,5 +1,7 @@
-#include "Stack.h"
 #include <stdio.h>
+#include <stdlib.h>
+#include "Stack.h"
+
 
 void list_delete(charNode * head);
 charNode *addToHead(charNode *head, charNode *toAdd);
@@ -143,11 +145,11 @@ void rotateStack(Stack* s, int n)
 
 void list_delete(charNode * head)
 {
-	charNode* tmp = NULL;
+	charNode* tmp;
 	while (head != NULL) {
 		tmp = head;
-		free(tmp);
 		head = head->next;
+		free(tmp);
 	}
 }
 charNode *addToHead(charNode *head, charNode *toAdd) {

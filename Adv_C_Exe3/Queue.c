@@ -1,9 +1,10 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "Queue.h"
 
-void list_delete(intNode * head);
-intNode *addToHead(intNode *head, intNode *toAdd);
-void removeItem(intNode **head);
+void list_delete2(intNode * head);
+intNode *addToHead2(intNode *head, intNode *toAdd);
+void removeItem2(intNode **head);
 
 /***************** Queue ADT Implementation *****************/
 
@@ -17,7 +18,7 @@ void initQueue(Queue* q)
 
 void destroyQueue(Queue* q)
 {
-	list_delete(q->head);
+	list_delete2(q->head);
 	//hi
 	// add your code here
 }
@@ -113,30 +114,38 @@ void cutAndReplace(Queue* q)
 void sortKidsFirst(Queue* q)
 {
 	// add your code here
-
+	int size = 0, i = 0, num1 = 0, num2 = 0;
 	Queue* tmp = (Queue*)malloc(sizeof(Queue));
 	initQueue(tmp);
-
 	while (!isEmptyQueue(q)) {
-		if (q->tail->data == q->head->data) {
-			dequeue(q);
-		}
-		else if(q->tail->data > q->head->data){
-			while (q->tail->data > q->head->data) {
-				rotateQueue(q);
-			}
-		}
 		enqueue(tmp, dequeue(q));
+		size++;
 	}
-	while (!isEmptyQueue(tmp)) {
-		enqueue(q, dequeue(tmp));
+
+	while (i < size) {
+		num1 = dequeue(tmp);
+		num2 = dequeue(tmp);
+		if (num1 > num2) {
+			enqueue(q, num2);
+			enqueue(q, num1);
+
+		}
+		else if (num1 < num2) {
+			enqueue(q, num1);
+			enqueue(q, num2);
+		}
+		i++;
 	}
 }
+	
+	
+
+
 
 
 /***************** LinkedList Functions *****************/
 
-void list_delete(intNode * head)
+void list_delete2(intNode * head)
 {
 	intNode* tmp = NULL;
 	while (head != NULL) {
@@ -145,12 +154,12 @@ void list_delete(intNode * head)
 		head = head->next;
 	}
 }
-intNode *addToHead(intNode *head, intNode *toAdd) {
+intNode *addToHead2(intNode *head, intNode *toAdd) {
 	toAdd->next = head;
 	head = toAdd;
 	return head;
 }
-void removeItem(intNode **head) {
+void removeItem2(intNode **head) {
 	if (*head == NULL) return; //if stack empty
 	intNode * tmp = *head;
 	*head = (*head)->next;
