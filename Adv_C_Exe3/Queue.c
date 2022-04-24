@@ -114,28 +114,50 @@ void cutAndReplace(Queue* q)
 void sortKidsFirst(Queue* q)
 {
 	// add your code here
-	int size = 0, i = 0, num1 = 0, num2 = 0;
+	int val = 0, counter = 0;
 	Queue* tmp = (Queue*)malloc(sizeof(Queue));
+	Queue* tmpFinal = (Queue*)malloc(sizeof(Queue));
 	initQueue(tmp);
+	initQueue(tmpFinal);
+	enqueue(tmp, dequeue(q));
+	val = tmp->head->data;
 	while (!isEmptyQueue(q)) {
 		enqueue(tmp, dequeue(q));
-		size++;
+		counter++;
 	}
-
-	while (i < size) {
-		num1 = dequeue(tmp);
-		num2 = dequeue(tmp);
-		if (num1 > num2) {
-			enqueue(q, num2);
-			enqueue(q, num1);
-
+	while (!isEmptyQueue(tmp)) {
+		enqueue(q, dequeue(tmp));
+		val = q->head->data;
+		while (!isEmptyQueue(tmp)) {
+			enqueue(q, dequeue(tmp));
+			if (!isEmptyQueue(tmp) && val > tmp->head->data)
+				val = tmp->head->data;
+			else if (q->tail->data != NULL && val > q->tail->data)
+				val = q->tail->data;
 		}
-		else if (num1 < num2) {
-			enqueue(q, num1);
-			enqueue(q, num2);
+		while (!isEmptyQueue(q)) {
+			if (val == q->head->data)
+				enqueue(tmpFinal, dequeue(q));
+			else
+				enqueue(tmp, dequeue(q));
 		}
-		i++;
 	}
+	while (!isEmptyQueue(tmpFinal))
+		enqueue(q, dequeue(tmpFinal));
+
+
+	/*while (!isEmptyQueue(tmp)) {
+	rotateQueue(tmp);
+	val = dequeue(tmp);
+	while (!isEmptyQueue(q) && q->tail > val) {
+	enqueue(tmp, dequeue(q));
+	}
+	enqueue(q, val);
+	}
+	while (!isEmptyQueue(tmp)) {
+	enqueue(q, dequeue(tmp));
+
+	}*/
 }
 	
 	
